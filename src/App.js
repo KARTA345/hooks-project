@@ -1,33 +1,47 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// Rutas públicas
+import 'bootstrap/dist/css/bootstrap.min.css'
 import LoginPage from './pages/loginpage/LoginPage';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
-import RegisterPage  from './pages/RegisterPage/RegisterPage';
+import NotFoundPage from  './pages/components/NotFoundPage';
+
+// Rutas para hooks
+import UseStatePlay from './pages/playground/UseStatePlay';
+import UseEffectPlay from './pages/playground/UseEffectPlay';
+import UseRefPlay from './pages/playground/UseRefPlay';
+
+// Protege rutas con autenticación Firebase
+import ProtectedRoute from './pages/components/ProtectedRoute';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage';
-import ProtectedRoute from './pages/components/ProtectedRoute';
-//import StateContador from './playground/useState/useState';
-import HooksGral from './playground/HooksGral';
-import UseStateHook from './playground/useState';
-
+import AuxiliaresPage from './pages/AuxiliaresPage/AuxiliaresPage';
 
 function App() {
   return (
     <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<LoginPage/>}/>
-      <Route path="/forgot" element={<ForgotPasswordPage/>}/>
-      <Route path="/register" element={<RegisterPage/>}/>
-      <Route path="/dashboard" element={<ProtectedRoute> <DashboardPage /> </ProtectedRoute> } />
-      <Route path="/reset-password" element={<ResetPasswordPage />} />
+      <Routes>
+        {/* Rutas públicas */}
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-      <Route path="/hooks" element={<HooksGral/>}/>
-      <Route path="/usestate" element={<UseStateHook/>}/>
-      
-    </Routes>
+        {/* Rutas protegidas con Firebase Auth */}
+        <Route path="/dashboard" element={<ProtectedRoute> <DashboardPage /> </ProtectedRoute> } />
+        <Route path="/auxiliares" element={<ProtectedRoute> <AuxiliaresPage /> </ProtectedRoute> } />
+
+        {/* Ruta genérica para páginas no encontradas */}
+        <Route path="*" element={<NotFoundPage />} />
+
+        {/* Rutas para prácticas de hooks */}
+        <Route path="/usestate" element={<UseStatePlay />} />
+        <Route path="/useeffect" element={<UseEffectPlay />} />
+        <Route path="/useref" element={<UseRefPlay />} />
+      </Routes>
     </BrowserRouter>
   );
-  
 }
 
 export default App;
