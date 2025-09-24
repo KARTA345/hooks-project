@@ -105,9 +105,9 @@ function DashboardPage() {
       <main className="main-content">
         <div>
           <img src={logo} alt="Brilla Logo" className="main-logo" />
-          <h1 className="welcome-title">Welcome to Brilla System</h1>
+          <h1 className="welcome-title">Bienvenido a PowerUp Fitness</h1>
           <p className="welcome-text">
-            Manage your clients, services, and more efficiently!
+            Tu compañero definitivo para alcanzar tus metas de salud y bienestar.
           </p>
 
           <p className="welcome-text">

@@ -12,9 +12,25 @@
     font-weight: bold;
 }
 
+/* tabla anterior 
+
 .table-container {
     max-width: 100%;
     overflow-x: auto;
+} */
+
+.table-container {
+     max-width: 100vw;   
+    height: 100vh; 
+    overflow: auto; 
+    margin: 0;      
+    padding: 0;     
+}
+
+.container, .container-fluid {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 .tabla-auxiliares {

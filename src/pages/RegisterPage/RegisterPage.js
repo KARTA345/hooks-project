@@ -42,6 +42,34 @@ function RegisterPage() {
       return;
     }
 
+    if (formData.cedula.length !== 10) {
+      Swal.fire("Cédula inválida", "El número de cédula debe tener exactamente 10 dígitos.", "error");
+      return;
+    }
+
+    if (formData.telefono.length !== 10) {
+      Swal.fire("Telefono inválido", "El número de telefono debe tener exactamente 10 dígitos.", "error");
+      return;
+    }
+
+    if (!/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/.test(formData.nombres)) {
+      Swal.fire(
+        "Nombre inválido",
+        "El nombre solo puede contener letras.",
+        "error"
+      );
+      return;
+    }
+
+    if (!/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/.test(formData.apellidos)) {
+      Swal.fire(
+        "Apellido inválido",
+        "El apellido solo puede contener letras.",
+        "error"
+      );
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       Swal.fire("Contraseña", "Las contraseñas no coinciden.", "error");
       return;

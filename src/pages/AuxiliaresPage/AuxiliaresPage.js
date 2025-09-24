@@ -96,24 +96,24 @@ function AuxiliaresPage() {
 
     // edad 
     const calcularEdad = (fechaNacimiento) => {
-    if (!fechaNacimiento) return "-";
-    const hoy = new Date();
-    const nacimiento = new Date(fechaNacimiento);
-    let edad = hoy.getFullYear() - nacimiento.getFullYear();
-    const mes = hoy.getMonth() - nacimiento.getMonth();
+        if (!fechaNacimiento) return "-";
+        const hoy = new Date();
+        const nacimiento = new Date(fechaNacimiento);
+        let edad = hoy.getFullYear() - nacimiento.getFullYear();
+        const mes = hoy.getMonth() - nacimiento.getMonth();
 
-    if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
-        edad--;
-    }
+        if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+            edad--;
+        }
 
-    return edad >= 0 ? `${edad} años` : "Fecha inválida";
-     };
+        return edad >= 0 ? `${edad} años` : "Fecha inválida";
+    };
 
     // Foto de usuario (si está logueado)
     const user = auth.currentUser;
 
 
-    
+
 
     return (
         <>
@@ -160,7 +160,7 @@ function AuxiliaresPage() {
             <main className="main-content">
                 <Container className="mt-4">
                     <h2 className="page-title text-center mb-4">
-                        AUXILIARES DE SERVICIOS REGISTRADOS EN BRILLA
+                        AUXILIARES DE SERVICIOS REGISTRADOS EN POWERUP FITNESS
                     </h2>
                     <div className="table-container">
                         <Table striped bordered hover responsive className="tabla-auxiliares">
@@ -188,32 +188,32 @@ function AuxiliaresPage() {
                                         <td>{aux.telefono}</td>
                                         <td>{aux.email}</td>
                                         <td>{aux.fechaNacimiento || '-'}</td>
-                                        <td>{calcularEdad(aux.fechaNacimiento)}</td> 
+                                        <td>{calcularEdad(aux.fechaNacimiento)}</td>
                                         <td>{aux.sexo || '-'}</td>
-                                                <td>
-                                                <span
-                                                    className={
+                                        <td>
+                                            <span
+                                                className={
                                                     aux.rol === "Admin"
                                                         ? "badge bg-primary"
                                                         : "badge bg-dark"
-                                                    }
-                                                >
-                                                    {aux.rol || 'Auxiliar'}
-                                                </span>
-                                                </td>
+                                                }
+                                            >
+                                                {aux.rol || 'Auxiliar'}
+                                            </span>
+                                        </td>
 
-                                                  <td>
-                                                <span
-                                                    className={aux.estado === "Activo"
-                                                        ? "badge bg-success"
-                                                        : aux.estado === "Pendiente"
+                                        <td>
+                                            <span
+                                                className={aux.estado === "Activo"
+                                                    ? "badge bg-success"
+                                                    : aux.estado === "Pendiente"
                                                         ? "badge bg-warning text-dark"
                                                         : "badge bg-secondary"
-                                                    }
-                                                >
-                                                    {aux.estado || 'Pendiente'}
-                                                </span>
-                                                </td>
+                                                }
+                                            >
+                                                {aux.estado || 'Pendiente'}
+                                            </span>
+                                        </td>
                                         <td>
                                             <Button
                                                 variant="outline-info"
@@ -306,7 +306,7 @@ function AuxiliaresPage() {
                                     value={selectedAux.fechaNacimiento || ''}
                                     onChange={handleModalChange}
                                 />
-                                </Form.Group>
+                            </Form.Group>
                             <Form.Group className="mb-2">
                                 <Form.Label>Edad</Form.Label>
                                 <Form.Control
