@@ -42,16 +42,18 @@ function RegisterPage() {
       return;
     }
 
-    if (formData.cedula.length !== 10) {
-      Swal.fire("Cédula inválida", "El número de cédula debe tener exactamente 10 dígitos.", "error");
+    // Validar cédula
+    if (!/^\d{10}$/.test(formData.cedula)) {
+      Swal.fire("Cédula inválida", "La cédula debe contener exactamente 10 dígitos numéricos.", "error");
       return;
     }
 
-    if (formData.telefono.length !== 10) {
-      Swal.fire("Telefono inválido", "El número de telefono debe tener exactamente 10 dígitos.", "error");
+    // Validar teléfono
+    if (!/^\d{10}$/.test(formData.telefono)) {
+      Swal.fire("Teléfono inválido", "El teléfono debe contener exactamente 10 dígitos numéricos.", "error");
       return;
     }
-
+    
     if (!/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/.test(formData.nombres)) {
       Swal.fire(
         "Nombre inválido",
