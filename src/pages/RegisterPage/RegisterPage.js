@@ -6,6 +6,7 @@ import { db } from '../../firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import './RegisterPage.css';
 import logo from '../../assets/brilla.png';
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -77,34 +78,54 @@ function RegisterPage() {
       return;
     }
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      const user = userCredential.user;
+    
 
-      // Guardar datos adicionales en Firestore
-      await setDoc(doc(db, 'usuarios', user.uid), {
-        cedula: formData.cedula,
-        nombres: formData.nombres,
-        apellidos: formData.apellidos,
-        fechaNacimiento: formData.fechaNacimiento,
-        sexo: formData.sexo,
-        telefono: formData.telefono,
-        email: formData.email,
-        estado: 'pendiente'  // campo para activar o desactivar luego
-      });
-
-      Swal.fire("¡Registro exitoso!", "Usuario registrado correctamente.", "success").then(() => {
-        window.location.href = "/";
-      });
-    } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        Swal.fire("Error", "Este correo ya está registrado.", "error");
-      } else {
-        console.error(error);
-        Swal.fire("Error", "No se pudo registrar el usuario.", "error");
-      }
+  // Validar que no exista cédula o teléfono repetidos
+  try {
+    // Consulta para cédula repetida
+    const cedulaQuery = query(collection(db, "usuarios"), where("cedula", "==", formData.cedula));
+    const cedulaSnapshot = await getDocs(cedulaQuery);
+    if (!cedulaSnapshot.empty) {
+      Swal.fire("Cédula duplicada", "Ya existe un usuario registrado con esta cédula.", "error");
+      return;
     }
-  };
+
+    // Consulta para teléfono repetido
+    const telefonoQuery = query(collection(db, "usuarios"), where("telefono", "==", formData.telefono));
+    const telefonoSnapshot = await getDocs(telefonoQuery);
+    if (!telefonoSnapshot.empty) {
+      Swal.fire("Teléfono duplicado", "Ya existe un usuario registrado con este teléfono.", "error");
+      return;
+    }
+
+    // Si pasa las validaciones, crea el usuario
+    const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+    const user = userCredential.user;
+
+    // Guardar datos adicionales en Firestore
+    await setDoc(doc(db, 'usuarios', user.uid), {
+      cedula: formData.cedula,
+      nombres: formData.nombres,
+      apellidos: formData.apellidos,
+      fechaNacimiento: formData.fechaNacimiento,
+      sexo: formData.sexo,
+      telefono: formData.telefono,
+      email: formData.email,
+      estado: 'pendiente'
+    });
+
+    Swal.fire("¡Registro exitoso!", "Usuario registrado correctamente.", "success").then(() => {
+      window.location.href = "/";
+    });
+  } catch (error) {
+    if (error.code === 'auth/email-already-in-use') {
+      Swal.fire("Error", "Este correo ya está registrado.", "error");
+    } else {
+      console.error(error);
+      Swal.fire("Error", "No se pudo registrar el usuario.", "error");
+    }
+  }
+};
 
   return (
     <div className="d-flex justify-content-center align-items-center min-vh-100 bg-gradient">

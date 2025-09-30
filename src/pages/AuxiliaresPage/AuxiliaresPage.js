@@ -11,21 +11,58 @@ import logo from '../../assets/brilla.png';
 
 function AuxiliaresPage() {
     const navigate = useNavigate();
+    const [userRole, setUserRole] = useState(null);
+    const [loadingUser, setLoadingUser] = useState(true);
     const [auxiliares, setAuxiliares] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedAux, setSelectedAux] = useState(null);
+    
+    const user = auth.currentUser;
 
+    // 1️⃣ Obtener el rol del usuario actual
+    useEffect(() => {
+        const fetchUserRole = async () => {
+            if (user) {
+                try {
+                    const querySnapshot = await getDocs(collection(db, 'usuarios'));
+                    const userDoc = querySnapshot.docs.find(doc => doc.data().email === user.email);
+
+                    if (userDoc) {
+                        const data = userDoc.data();
+                        setUserRole(data.rol);
+                    }
+                } catch (error) {
+                    console.error("Error obteniendo rol del usuario:", error);
+                }
+            }
+            setLoadingUser(false);
+        };
+
+        fetchUserRole();
+    }, [user]);
+
+    // 2️⃣ Obtener auxiliares solo si el usuario es admin
     useEffect(() => {
         const fetchAuxiliares = async () => {
-            const querySnapshot = await getDocs(collection(db, 'usuarios'));
-            const data = querySnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
-            setAuxiliares(data);
+            if (userRole === 'Admin') {
+                try {
+                    const querySnapshot = await getDocs(collection(db, 'usuarios'));
+                    const data = querySnapshot.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    }));
+                    setAuxiliares(data);
+                } catch (error) {
+                    console.error("Error obteniendo auxiliares:", error);
+                }
+            }
         };
+
         fetchAuxiliares();
-    }, []);
+    }, [userRole]);
+
+    
+
 
     const handleLogout = async () => {
         await signOut(auth);
@@ -109,11 +146,6 @@ function AuxiliaresPage() {
         return edad >= 0 ? `${edad} años` : "Fecha inválida";
     };
 
-    // Foto de usuario (si está logueado)
-    const user = auth.currentUser;
-
-
-
 
     return (
         <>
@@ -157,93 +189,98 @@ function AuxiliaresPage() {
                 </Container>
             </Navbar>
 
-            <main className="main-content">
-                <Container className="mt-4">
-                    <h2 className="page-title text-center mb-4">
-                        AUXILIARES DE SERVICIOS REGISTRADOS EN POWERUP FITNESS
-                    </h2>
-                    <div className="table-container">
-                        <Table striped bordered hover responsive className="tabla-auxiliares">
-                            <thead>
-                                <tr>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>Cédula</th>
-                                    <th>Teléfono</th>
-                                    <th>Email</th>
-                                    <th>Fecha Nacimiento</th>
-                                    <th>Edad</th>
-                                    <th>Sexo</th>
-                                    <th>Rol</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {auxiliares.map(aux => (
-                                    <tr key={aux.id}>
-                                        <td>{aux.nombres}</td>
-                                        <td>{aux.apellidos}</td>
-                                        <td>{aux.cedula}</td>
-                                        <td>{aux.telefono}</td>
-                                        <td>{aux.email}</td>
-                                        <td>{aux.fechaNacimiento || '-'}</td>
-                                        <td>{calcularEdad(aux.fechaNacimiento)}</td>
-                                        <td>{aux.sexo || '-'}</td>
-                                        <td>
-                                            <span
-                                                className={
-                                                    aux.rol === "Admin"
-                                                        ? "badge bg-primary"
-                                                        : "badge bg-dark"
-                                                }
-                                            >
-                                                {aux.rol || 'Auxiliar'}
-                                            </span>
-                                        </td>
-
-                                        <td>
-                                            <span
-                                                className={aux.estado === "Activo"
-                                                    ? "badge bg-success"
-                                                    : aux.estado === "Pendiente"
-                                                        ? "badge bg-warning text-dark"
-                                                        : "badge bg-secondary"
-                                                }
-                                            >
-                                                {aux.estado || 'Pendiente'}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <Button
-                                                variant="outline-info"
-                                                size="sm"
-                                                className="me-2"
-                                                onClick={() => handleEdit(aux)}
-                                            >
-                                                <FaEdit />
-                                            </Button>
-                                            <Button
-                                                variant="outline-danger"
-                                                size="sm"
-                                                onClick={() => handleEliminar(aux.id)}
-                                            >
-                                                <FaTrash />
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
-                    </div>
+            {loadingUser ? (
+                <p className="text-center">Cargando...</p>
+            ) : userRole === "Admin" ? (
+                <>
+                    {/* Contenido para Admin */}
+                    <main className="main-content">
+                        <Container className="mt-4">
+                            <h2 className="page-title text-center mb-4">
+                                AUXILIARES DE SERVICIOS REGISTRADOS EN POWERUP FITNESS
+                            </h2>
+                            <div className="table-container">
+                                <Table striped bordered hover responsive className="tabla-auxiliares">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombres</th>
+                                            <th>Apellidos</th>
+                                            <th>Cédula</th>
+                                            <th>Teléfono</th>
+                                            <th>Email</th>
+                                            <th>Fecha Nacimiento</th>
+                                            <th>Edad</th>
+                                            <th>Sexo</th>
+                                            <th>Rol</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {auxiliares.map(aux => (
+                                            <tr key={aux.id}>
+                                                <td>{aux.nombres}</td>
+                                                <td>{aux.apellidos}</td>
+                                                <td>{aux.cedula}</td>
+                                                <td>{aux.telefono}</td>
+                                                <td>{aux.email}</td>
+                                                <td>{aux.fechaNacimiento || '-'}</td>
+                                                <td>{calcularEdad(aux.fechaNacimiento)}</td>
+                                                <td>{aux.sexo || '-'}</td>
+                                                <td>
+                                                    <span className={aux.rol === "Admin" ? "badge bg-primary" : "badge bg-dark"}>
+                                                        {aux.rol || 'Auxiliar'}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        className={
+                                                            aux.estado === "Activo"
+                                                                ? "badge bg-success"
+                                                                : aux.estado === "Pendiente"
+                                                                    ? "badge bg-warning text-dark"
+                                                                    : "badge bg-secondary"
+                                                        }
+                                                    >
+                                                        {aux.estado || 'Pendiente'}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <Button
+                                                        variant="outline-info"
+                                                        size="sm"
+                                                        className="me-2"
+                                                        onClick={() => handleEdit(aux)}
+                                                    >
+                                                        <FaEdit />
+                                                    </Button>
+                                                    <Button
+                                                        variant="outline-danger"
+                                                        size="sm"
+                                                        onClick={() => handleEliminar(aux.id)}
+                                                    >
+                                                        <FaTrash />
+                                                    </Button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </Table>
+                            </div>
+                        </Container>
+                    </main>
+                </>
+            ) : (
+                // Si no es admin, mostrar mensaje + botón
+                <Container className="text-center mt-5">
+                    <h3>Acceso denegado</h3>
+                    <p>Esta sección solo está disponible para administradores.</p>
+                    <Button variant="primary" onClick={() => navigate('/dashboard')}>
+                        Volver al Inicio
+                    </Button>
                 </Container>
-            </main>
+            )}
 
-            <footer className="footer mt-auto">
-                <Container className="text-center">
-                    <small>© 2025 Brilla. All rights reserved.</small>
-                </Container>
-            </footer>
 
             {/* MODAL EDICIÓN */}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
