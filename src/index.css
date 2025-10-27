@@ -1,3 +1,69 @@
+/* Variables EXACTAS de tu Figma - Pyrotechnic Store */
+:root {
+  /* Brand colors - Pyrotechnic Store */
+  --brand-dark: #0B1320;
+  --brand-mid: #1F4E79;
+  --brand-accent: #FF6B35;
+  --brand-warm: #FFD166;
+  --danger: #D0342C;
+  --radius-md: 12px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  
+  /* Dark theme colors for reduced eye strain */
+  --neutral-bg-dark: #0F1419;
+  --neutral-surface-dark: #1A1F26;
+  --neutral-surface-elevated: #222831;
+  --neutral-border: rgba(255, 255, 255, 0.1);
+  --neutral-text-primary: #E8EAED;
+  --neutral-text-secondary: #9BA3AF;
+  
+  /* Standard theme variables */
+  --font-size: 16px;
+  --background: var(--neutral-bg-dark);
+  --foreground: var(--neutral-text-primary);
+  --card: var(--neutral-surface-dark);
+  --card-foreground: var(--neutral-text-primary);
+  --popover: var(--neutral-surface-elevated);
+  --popover-foreground: var(--neutral-text-primary);
+  --primary: var(--brand-mid);
+  --primary-foreground: #ffffff;
+  --secondary: var(--neutral-surface-elevated);
+  --secondary-foreground: var(--neutral-text-primary);
+  --muted: var(--neutral-surface-dark);
+  --muted-foreground: var(--neutral-text-secondary);
+  --accent: var(--brand-accent);
+  --accent-foreground: #ffffff;
+  --destructive: var(--danger);
+  --destructive-foreground: #ffffff;
+  --border: var(--neutral-border);
+  --input: var(--neutral-border);
+  --input-background: var(--neutral-surface-elevated);
+  --switch-background: #3A4149;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: var(--brand-accent);
+  --chart-1: var(--brand-accent);
+  --chart-2: var(--brand-mid);
+  --chart-3: var(--brand-warm);
+  --chart-4: #828282;
+  --chart-5: var(--brand-dark);
+  --radius: 0.625rem;
+  --sidebar: var(--neutral-surface-dark);
+  --sidebar-foreground: var(--neutral-text-primary);
+  --sidebar-primary: var(--brand-mid);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--neutral-surface-elevated);
+  --sidebar-accent-foreground: var(--neutral-text-primary);
+  --sidebar-border: var(--neutral-border);
+  --sidebar-ring: var(--brand-accent);
+}
+
+/* Base styles */
+* {
+  border-color: var(--border);
+  outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +71,101 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: var(--font-size);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Typography styles como en Figma */
+h1 {
+  font-size: 1.5rem; /* 2xl */
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: 1.25rem; /* xl */
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+}
+
+h3 {
+  font-size: 1.125rem; /* lg */
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+}
+
+h4 {
+  font-size: 1rem; /* base */
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+}
+
+p {
+  font-size: 1rem; /* base */
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+}
+
+label {
+  font-size: 1rem; /* base */
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+}
+
+button {
+  font-size: 1rem; /* base */
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+}
+
+input {
+  font-size: 1rem; /* base */
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+}
+
+/* Utility classes para los colores exactos */
+.bg-background { background-color: var(--background); }
+.bg-foreground { background-color: var(--foreground); }
+.bg-card { background-color: var(--card); }
+.bg-popover { background-color: var(--popover); }
+.bg-primary { background-color: var(--primary); }
+.bg-secondary { background-color: var(--secondary); }
+.bg-muted { background-color: var(--muted); }
+.bg-accent { background-color: var(--accent); }
+.bg-destructive { background-color: var(--destructive); }
+
+.text-foreground { color: var(--foreground); }
+.text-card-foreground { color: var(--card-foreground); }
+.text-popover-foreground { color: var(--popover-foreground); }
+.text-primary-foreground { color: var(--primary-foreground); }
+.text-secondary-foreground { color: var(--secondary-foreground); }
+.text-muted-foreground { color: var(--muted-foreground); }
+.text-accent-foreground { color: var(--accent-foreground); }
+.text-destructive-foreground { color: var(--destructive-foreground); }
+
+.border-border { border-color: var(--border); }
+.border-input { border-color: var(--input); }
+
+/* Brand specific utilities */
+.bg-brand-dark { background-color: var(--brand-dark); }
+.bg-brand-mid { background-color: var(--brand-mid); }
+.bg-brand-accent { background-color: var(--brand-accent); }
+.bg-brand-warm { background-color: var(--brand-warm); }
+
+.text-brand-accent { color: var(--brand-accent); }
+.text-brand-mid { color: var(--brand-mid); }
+.text-brand-warm { color: var(--brand-warm); }
+
+/* Border radius utilities */
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius); }
+
+/* Shadow utilities */
+.shadow-sm { box-shadow: var(--shadow-sm); }

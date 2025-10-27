@@ -124,3 +124,218 @@
     padding: 15px;
     width: 100%;
 }
+
+/* ========== NUEVOS ESTILOS AGREGADOS ========== */
+
+/* Estilos para las tarjetas del dashboard */
+.dashboard-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    background: #fff;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.dashboard-card .card-body {
+    padding: 2rem 1.5rem;
+}
+
+.dashboard-card .card-title {
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.dashboard-card .card-text {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+/* Contenedor principal actualizado */
+.main-content .container {
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Información de usuario mejorada */
+.user-info {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    margin-bottom: 2rem;
+}
+
+.user-info img {
+    border: 3px solid #d4af37;
+}
+
+/* Botones del dashboard */
+.dashboard-card .btn {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.dashboard-card .btn-primary {
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
+.dashboard-card .btn-primary:hover {
+    background-color: #d4af37;
+    border-color: #d4af37;
+    color: #000;
+}
+
+.dashboard-card .btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.dashboard-card .btn-outline-success:hover {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+}
+
+.dashboard-card .btn-warning {
+    background-color: #d4af37;
+    border-color: #d4af37;
+    color: #000;
+}
+
+.dashboard-card .btn-warning:hover {
+    background-color: #c19b2a;
+    border-color: #c19b2a;
+    color: #000;
+}
+
+/* Acciones rápidas */
+.actions-container {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.actions-container h3 {
+    color: #343a40;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.actions-container .btn {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid;
+    margin: 0.25rem;
+}
+
+.actions-container .btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.actions-container .btn-outline-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.actions-container .btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.actions-container .btn-outline-success:hover {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+}
+
+.actions-container .btn-outline-info {
+    color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.actions-container .btn-outline-info:hover {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: #fff;
+}
+
+/* Iconos en las tarjetas */
+.dashboard-card .fa,
+.dashboard-card .fas,
+.dashboard-card .far {
+    margin-bottom: 1rem;
+}
+
+.dashboard-card .fa-box {
+    color: #343a40;
+}
+
+.dashboard-card .fa-users {
+    color: #28a745;
+}
+
+.dashboard-card .fa-calendar {
+    color: #d4af37;
+}
+
+/* Grid responsivo */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px 15px;
+        align-items: flex-start;
+    }
+    
+    .dashboard-card .card-body {
+        padding: 1.5rem 1rem;
+    }
+    
+    .welcome-title {
+        font-size: 2rem;
+    }
+    
+    .welcome-text {
+        font-size: 1rem;
+    }
+    
+    .actions-container .btn {
+        width: 100%;
+        margin: 0.25rem 0;
+    }
+    
+    .user-info {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .dashboard-navbar {
+        padding: 0.5rem 1rem;
+    }
+    
+    .main-content {
+        padding: 15px 10px;
+    }
+    
+    .main-logo {
+        max-width: 200px;
+    }
+    
+    .welcome-title {
+        font-size: 1.8rem;
+    }
+}

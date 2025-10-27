@@ -1,0 +1,29 @@
+.seguridad-page {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.safety-content {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 40px;
+  margin-top: 40px;
+}
+
+.safety-content h3 {
+  color: var(--brand-accent);
+  margin-bottom: 20px;
+}
+
+.safety-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.safety-content li {
+  padding: 8px 0;
+  color: var(--muted-foreground);
+  font-size: 1rem;
+}
